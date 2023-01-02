@@ -7,15 +7,15 @@
 <!-- badges: end -->
 
 The goal of `ggdesign` is to make it easier to export charts from
-ggplot2, so they can then be edited in vector graphic design software
+`ggplot2`, so they can then be edited in vector graphic design software
 (e.g. Adobe Illustrator, Figma, Affinity Designer).
 
 Hopefully, `ggdesign` will be helpful for two groups of people:
 
-- Designers who want to include R and ggplot2 in their data
+- Designers who want to include R and `ggplot2` in their data
   visualisation design workflow.So, they can create basic svg versions
-  of a chart which they can enhance in vector design software.
-- R / ggplot2 users who want to export their charts for editing in
+  of a chart which they can then enhance in vector design software.
+- R / `ggplot2` users who want to export their charts for editing in
   design software. So, they can make enhancements to their charts which
   are difficult (or impossible) to make in code.
 
@@ -53,7 +53,6 @@ p <- ggplot(mtcars, aes(mpg)) +
 # show the issue with the gaps
 p +
   ggtitle("By default there are gaps between the axis and the chart")
-#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 <img src="man/figures/README-clean-axis-1.png" width="100%" />
@@ -64,7 +63,6 @@ p +
 p + 
   clean_axis() + # removes the gaps
   ggtitle("The gaps can be removed to make everything look neater")
-#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 <img src="man/figures/README-clean-axis-2.png" width="100%" />
@@ -94,7 +92,6 @@ p +
   clean_axis() +
   theme_edit() + # brings the chart structure to your attention
   ggtitle("The bars are faded out in this example so you can see the structure of the chart")
-#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 <img src="man/figures/README-export-to-edit-1.png" width="100%" />
@@ -103,6 +100,4 @@ p +
   
 # save the chart as svg for editting
 ggsave("chart_to_edit.svg")
-#> Saving 7 x 5 in image
-#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```

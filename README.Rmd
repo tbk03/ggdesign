@@ -10,7 +10,8 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "man/figures/README-",
   out.width = "100%",
-  warning = FALSE
+  warning = FALSE,
+  message = FALSE
 )
 
 ggplot2::theme_set(ggplot2::theme_classic())
@@ -21,16 +22,16 @@ ggplot2::theme_set(ggplot2::theme_classic())
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of `ggdesign` is to make it easier to export charts from ggplot2, 
+The goal of `ggdesign` is to make it easier to export charts from `ggplot2`, 
 so they can then be edited in vector graphic design software (e.g. Adobe 
 Illustrator, Figma, Affinity Designer).
 
 Hopefully, `ggdesign` will be helpful for two groups of people: 
 
-* Designers who want to include R and ggplot2 in their data visualisation design 
-workflow.So, they can create basic svg versions of a chart which they can enhance
+* Designers who want to include R and `ggplot2` in their data visualisation design 
+workflow.So, they can create basic svg versions of a chart which they can then enhance
 in vector design software.
-* R / ggplot2 users who want to export their charts for editing in design software. 
+* R / `ggplot2` users who want to export their charts for editing in design software. 
 So, they can make enhancements to their charts which are difficult (or impossible) 
 to make in code. 
 
