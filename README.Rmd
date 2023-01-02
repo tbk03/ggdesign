@@ -30,14 +30,24 @@ You can install the development version of ggdesign from [GitHub](https://github
 devtools::install_github("tbk03/ggdesign")
 ```
 
-## Example
+## Examples
 
+### Clean up axis
 This is a basic example which shows you how to solve a common problem:
 
-```{r example}
+```{r clean-axis}
 library(ggdesign)
 ## basic example code
 ```
+
+
+```{r export-to-edit}
+#code
+```
+
+
+
+
 
 What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
 

@@ -20,13 +20,19 @@ You can install the development version of ggdesign from
 devtools::install_github("tbk03/ggdesign")
 ```
 
-## Example
+## Examples
+
+### Clean up axis
 
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(ggdesign)
 ## basic example code
+```
+
+``` r
+#code
 ```
 
 What is special about using `README.Rmd` instead of just `README.md`?
