@@ -76,11 +76,8 @@
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tbk03/ggdesign"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+<h2 id="cleaning-up-the-axis-on-a-chart-before-exporting-as-an-svg">Cleaning up the axis on a chart before exporting as an svg<a class="anchor" aria-label="anchor" href="#cleaning-up-the-axis-on-a-chart-before-exporting-as-an-svg"></a>
 </h2>
-<div class="section level3">
-<h3 id="cleaning-up-the-axis-on-a-chart-before-exporting-as-an-svg">Cleaning up the axis on a chart before exporting as an svg<a class="anchor" aria-label="anchor" href="#cleaning-up-the-axis-on-a-chart-before-exporting-as-an-svg"></a>
-</h3>
 <p>By default there are gaps between the axis and the data displayed in the chart. Often when editing a chart by hand in design software you will want the data to fit snuggly to the axis. <code><a href="reference/clean_axis.html">clean_axis()</a></code> helps you to do this without getting to involved in the details of how <code>ggplot</code> works.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import packages</span></span>
@@ -106,9 +103,9 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"The gaps can be removed to make everything look neater"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-clean-axis-2.png" width="100%"></p>
 </div>
-<div class="section level3">
-<h3 id="exporting-a-chart-as-an-svg-to-edit">Exporting a chart as an svg to edit<a class="anchor" aria-label="anchor" href="#exporting-a-chart-as-an-svg-to-edit"></a>
-</h3>
+<div class="section level2">
+<h2 id="exporting-a-chart-as-an-svg-to-edit">Exporting a chart as an svg to edit<a class="anchor" aria-label="anchor" href="#exporting-a-chart-as-an-svg-to-edit"></a>
+</h2>
 <p>When editing a chart in design software, paying attention to the details of the chart structure can really enhance the overall design aesthetic. <code>ggdesign</code> provides <code>theme_edit</code> to help you focus on these design decisions. It deliberately applies inappropriate and offputting colours to the structural elements of the chart (inc the axis and gridlines). So, once you import the chart into your design software you are forced to consider and make deliberate changes to these structural elements. Each group of elements (e.g. minor gridlines) are coloured the same, so you can use select same colour in your design software to edit them all together.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a slightly different chart for demonstration </span></span>
@@ -127,7 +124,6 @@
 <code class="sourceCode R"><span>  </span>
 <span><span class="co"># save the chart as svg for editting</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"man/figures/chart_to_edit.svg"</span><span class="op">)</span></span></code></pre></div>
-</div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
