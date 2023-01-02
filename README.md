@@ -99,5 +99,5 @@ p +
 ``` r
   
 # save the chart as svg for editting
-ggsave("chart_to_edit.svg")
+ggsave("man/figures/chart_to_edit.svg")
 ```

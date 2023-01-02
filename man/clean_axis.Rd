@@ -12,9 +12,8 @@ clean_axis(coord_system = ggplot2::coord_cartesian)
 ggplot2::coord_equal)}
 }
 \value{
-an object with the following classes to be added to chart using the
-'+' operator. Expected classes: CoordCartesian, Coord, ggproto, gg. This
-cleans up the axis.
+an object to be added to chart using the ' '+' operator.
+The object has the following classes: CoordCartesian, Coord, ggproto and gg.
 }
 \description{
 Cleans up the axis on a ggplot2 chart (ahead of export for editing in vector
