@@ -29,9 +29,7 @@ You can install the development version of ggdesign from
 devtools::install_github("tbk03/ggdesign")
 ```
 
-## Examples
-
-### Cleaning up the axis on a chart before exporting as an svg
+## Cleaning up the axis on a chart before exporting as an svg
 
 By default there are gaps between the axis and the data displayed in the
 chart. Often when editing a chart by hand in design software you will
@@ -67,7 +65,7 @@ p +
 
 <img src="man/figures/README-clean-axis-2.png" width="100%" />
 
-### Exporting a chart as an svg to edit
+## Exporting a chart as an svg to edit
 
 When editing a chart in design software, paying attention to the details
 of the chart structure can really enhance the overall design aesthetic.
