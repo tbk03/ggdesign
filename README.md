@@ -75,8 +75,8 @@ to the structural elements of the chart (inc the axis and gridlines).
 So, once you import the chart into your design software you are forced
 to consider and make deliberate changes to these structural elements.
 Each group of elements (e.g. minor gridlines) are coloured the same, so
-you can use select same colour in your design software to edit them all
-together.
+you can use ‘select same colour’ in your design software to edit them
+all together.
 
 ``` r
 # create a slightly different chart for demonstration 
