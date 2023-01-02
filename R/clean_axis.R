@@ -1,4 +1,20 @@
 
+#' Cleans up the axis on a ggplot2 chart (ahead of export for editing in vector
+#' design software)
+#'
+#' @param coord_system the ggplot2 coordinate system used in the chart (e.g.
+#' ggplot2::coord_equal)
+#'
+#' @return an object with the following classes to be added to chart using the
+#' '+' operator. Expected classes: CoordCartesian, Coord, ggproto, gg. This
+#' cleans up the axis.
+#' @export
+#'
+#' @examples
+#' ggplot2::ggplot(mtcars, ggplot2::aes(mpg, wt)) +
+#' ggplot2::geom_point() +
+#' clean_axis()
+#'
 clean_axis <- function(coord_system = ggplot2::coord_cartesian) {
   # ----------------------------------------------------------------------------
   # error handling
