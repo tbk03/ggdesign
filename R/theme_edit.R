@@ -21,9 +21,6 @@ theme_edit <- function() {
   # ---------------------------------------------------------------------------
   list(
 
-    # turn of clipping mask, so points at the edge of the chart show fully
-    ggplot2::coord_cartesian(clip = "off"),
-
     # start with default ggplot2 theme
     # because it produces fewer svg artifacts than other themes
     ggplot2::theme_gray(),

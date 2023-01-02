@@ -9,8 +9,11 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "100%",
+  warning = FALSE
 )
+
+ggplot2::theme_set(ggplot2::theme_classic())
 ```
 
 # ggdesign
@@ -18,8 +21,18 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of `ggdesign` is to make it easier to export charts from ggplot2 for use
-in vector graphic design software (e.g. Adobe Illustrator, Figma, Affinity Designer).
+The goal of `ggdesign` is to make it easier to export charts from ggplot2, 
+so they can then be edited in vector graphic design software (e.g. Adobe 
+Illustrator, Figma, Affinity Designer).
+
+Hopefully, `ggdesign` will be helpful for two groups of people: 
+
+* Designers who want to include R and ggplot2 in their data visualisation design 
+workflow.So, they can create basic svg versions of a chart which they can enhance
+in vector design software.
+* R / ggplot2 users who want to export their charts for editing in design software. 
+So, they can make enhancements to their charts which are difficult (or impossible) 
+to make in code. 
 
 ## Installation
 
@@ -32,35 +45,61 @@ devtools::install_github("tbk03/ggdesign")
 
 ## Examples
 
-### Clean up axis
-This is a basic example which shows you how to solve a common problem:
+### Cleaning up the axis on a chart before exporting as an svg
+By default there are gaps between the axis and the data displayed in the chart. 
+Often when editing a chart by hand in design software you will want the data
+to fit snuggly to the axis. `clean_axis()` helps you to do this without getting
+to involved in the details of how `ggplot` works.
 
 ```{r clean-axis}
+# import packages
 library(ggdesign)
-## basic example code
+library(ggplot2)
+
+# get a colour to use in the plot from the ggdesign palette
+fill_colour <- get_colours(1)
+
+# create a very basic plot for demonstration 
+p <- ggplot(mtcars, aes(mpg)) +
+    geom_histogram(fill = fill_colour)
+
+# show the issue with the gaps
+p +
+  ggtitle("By default there are gaps between the axis and the chart")
+
+# addressing the issue with axis clean
+p + 
+  clean_axis() + # removes the gaps
+  ggtitle("The gaps can be removed to make everything look neater")
 ```
 
+### Exporting a chart as an svg to edit
+When editing a chart in design software, paying attention to the details of the 
+chart structure can really enhance the overall design aesthetic. `ggdesign` 
+provides `theme_edit` to help you focus on these design decisions. It deliberately
+applies inappropriate and offputting colours to the structural elements of the chart 
+(inc the axis and gridlines). So, once you import the chart into your design software
+you are forced to consider and make deliberate changes to these structural elements.
+Each group of elements (e.g. minor gridlines) are coloured the same, so you can use
+select same colour in your design software to edit them all together.
 
 ```{r export-to-edit}
-#code
+# create a slightly different chart for demonstration 
+# the bars are transparent in this chart so you can see how theme_edit()
+# changed the structure of the chart
+p <- ggplot(mtcars, aes(mpg)) +
+    geom_histogram(fill = fill_colour, 
+                   alpha = 0.2) # fade bars into background
+
+p + 
+  clean_axis() +
+  theme_edit() + # brings the chart structure to your attention
+  ggtitle("The bars are faded out in this example so you can see the structure of the chart")
+  
+# save the chart as svg for editting
+ggsave("chart_to_edit.svg")
 ```
 
 
 
 
-
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
-
-```{r cars}
-summary(cars)
-```
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.

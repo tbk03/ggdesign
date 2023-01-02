@@ -7,8 +7,17 @@
 <!-- badges: end -->
 
 The goal of `ggdesign` is to make it easier to export charts from
-ggplot2 for use in vector graphic design software (e.g. Adobe
-Illustrator, Figma, Affinity Designer).
+ggplot2, so they can then be edited in vector graphic design software
+(e.g. Adobe Illustrator, Figma, Affinity Designer).
+
+Hopefully, `ggdesign` will be helpful for two groups of people:
+
+- Designers who want to include R and ggplot2 in their data
+  visualisation design workflow.So, they can create basic svg versions
+  of a chart which they can enhance in vector design software.
+- R / ggplot2 users who want to export their charts for editing in
+  design software. So, they can make enhancements to their charts which
+  are difficult (or impossible) to make in code.
 
 ## Installation
 
@@ -22,42 +31,78 @@ devtools::install_github("tbk03/ggdesign")
 
 ## Examples
 
-### Clean up axis
+### Cleaning up the axis on a chart before exporting as an svg
 
-This is a basic example which shows you how to solve a common problem:
+By default there are gaps between the axis and the data displayed in the
+chart. Often when editing a chart by hand in design software you will
+want the data to fit snuggly to the axis. `clean_axis()` helps you to do
+this without getting to involved in the details of how `ggplot` works.
 
 ``` r
+# import packages
 library(ggdesign)
-## basic example code
+library(ggplot2)
+
+# get a colour to use in the plot from the ggdesign palette
+fill_colour <- get_colours(1)
+
+# create a very basic plot for demonstration 
+p <- ggplot(mtcars, aes(mpg)) +
+    geom_histogram(fill = fill_colour)
+
+# show the issue with the gaps
+p +
+  ggtitle("By default there are gaps between the axis and the chart")
+#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
+
+<img src="man/figures/README-clean-axis-1.png" width="100%" />
 
 ``` r
-#code
+
+# addressing the issue with axis clean
+p + 
+  clean_axis() + # removes the gaps
+  ggtitle("The gaps can be removed to make everything look neater")
+#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+<img src="man/figures/README-clean-axis-2.png" width="100%" />
+
+### Exporting a chart as an svg to edit
+
+When editing a chart in design software, paying attention to the details
+of the chart structure can really enhance the overall design aesthetic.
+`ggdesign` provides `theme_edit` to help you focus on these design
+decisions. It deliberately applies inappropriate and offputting colours
+to the structural elements of the chart (inc the axis and gridlines).
+So, once you import the chart into your design software you are forced
+to consider and make deliberate changes to these structural elements.
+Each group of elements (e.g. minor gridlines) are coloured the same, so
+you can use select same colour in your design software to edit them all
+together.
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+# create a slightly different chart for demonstration 
+# the bars are transparent in this chart so you can see how theme_edit()
+# changed the structure of the chart
+p <- ggplot(mtcars, aes(mpg)) +
+    geom_histogram(fill = fill_colour, 
+                   alpha = 0.2) # fade bars into background
+
+p + 
+  clean_axis() +
+  theme_edit() + # brings the chart structure to your attention
+  ggtitle("The bars are faded out in this example so you can see the structure of the chart")
+#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
+<img src="man/figures/README-export-to-edit-1.png" width="100%" />
 
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+``` r
+  
+# save the chart as svg for editting
+ggsave("chart_to_edit.svg")
+#> Saving 7 x 5 in image
+#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```

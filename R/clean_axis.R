@@ -5,9 +5,8 @@
 #' @param coord_system the ggplot2 coordinate system used in the chart (e.g.
 #' ggplot2::coord_equal)
 #'
-#' @return an object with the following classes to be added to chart using the
-#' '+' operator. Expected classes: CoordCartesian, Coord, ggproto, gg. This
-#' cleans up the axis.
+#' @return an object to be added to chart using the ' '+' operator.
+#' The object has the following classes: CoordCartesian, Coord, ggproto and gg.
 #' @export
 #'
 #' @examples
