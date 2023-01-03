@@ -12,7 +12,7 @@ test_that("clean_axis() works with default arguments", {
   expect_s3_class(p, "ggplot")
 
   # output for manual inspection in vector design software
-  ggplot2::ggsave("plots_for_manual_inspection/clean_axis_1_scatter.svg", p)
+  ggplot2::ggsave("man_insp/clean_axis_1_scatter.svg", p)
 })
 
 test_that("clean_axis() works with a passed coord_system argument", {
@@ -25,7 +25,7 @@ test_that("clean_axis() works with a passed coord_system argument", {
   expect_s3_class(p, "ggplot")
 
   # output for manual inspection in vector design software
-  ggplot2::ggsave("plots_for_manual_inspection/clean_axis_2_scatter.svg", p)
+  ggplot2::ggsave("man_insp/clean_axis_2_scatter.svg", p)
 })
 
 # ------------------------------------------------------------------------------

@@ -13,7 +13,7 @@ test_that("theme_edit() works for a simple scatterplot", {
   expect_s3_class(p, "ggplot")
 
   # output for manual inspection in vector design software
-  ggplot2::ggsave("plots_for_manual_inspection/theme_edit_scatter.svg", p)
+  ggplot2::ggsave("man_insp/theme_edit_scatter.svg", p)
 
 })
 
@@ -28,6 +28,6 @@ test_that("theme_edit() works for a simple histogram", {
   expect_s3_class(p, "ggplot")
 
   # output for manual inspection in vector design software
-  ggplot2::ggsave("plots_for_manual_inspection/theme_edit_hist.svg", p)
+  ggplot2::ggsave("man_insp/theme_edit_hist.svg", p)
 
 })

@@ -44,9 +44,9 @@ library(ggplot2)
 # get a colour to use in the plot from the ggdesign palette
 fill_colour <- get_colours(1)
 
-# create a very basic plot for demonstration 
+# create a very basic plot for demonstration
 p <- ggplot(mtcars, aes(mpg)) +
-    geom_histogram(fill = fill_colour)
+  geom_histogram(fill = fill_colour)
 
 # show the issue with the gaps
 p +
@@ -58,14 +58,49 @@ p +
 ``` r
 
 # addressing the issue with axis clean
-p + 
+p +
   clean_axis() + # removes the gaps
   ggtitle("The gaps can be removed to make everything look neater")
 ```
 
 <img src="man/figures/README-clean-axis-2.png" width="100%" />
 
-## Exporting a chart as an svg to edit
+## Exporting a chart as an svg (with text and other chart structure about the right size!)
+
+A challenge often faced when exporting charts as svgs to edit in vector
+design software, is the sizing of the non-data elements of the chart. If
+you export a large chart (say 200mm by 200m), when you open it in the
+design software the text can be tiny and the axis/gridlines very thin.
+
+`theme_to_size()` estimates an appropriate text size and line weights
+based on the height and width of the plot. These estimates might not
+prove to be ideal, but when you open the svg to edit you should be able
+to see everything roughly in place. Of course, everything can be tweaked
+in the design software before the chart is finalised.
+
+Due to the way ggplot2 works, you have to pass the chart width, height
+and units to both `theme_to_size()` (for sizing non-data elements of the
+chart) and `ggsave()` (for exporting the chart), as shown below.
+
+``` r
+# define the size of the exported chart
+p_width <- 100
+p_height <- 60
+p_units <- "mm"
+
+# resize the text, axis and gridlines on the plot above to better match the
+# size of the exported chart
+p_sized <- p +
+  theme_to_size(width = p_width, height = p_height, units = p_units)
+
+# save the chart as svg for editting
+ggsave("man/figures/chart_theme_to_size.svg",
+  p_sized,
+  width = p_width, height = p_height, units = p_units
+)
+```
+
+## Exporting a chart as an svg and making sure you edit the structure
 
 When editing a chart in design software, paying attention to the details
 of the chart structure can really enhance the overall design aesthetic.
@@ -79,14 +114,16 @@ you can use ‘select same colour’ in your design software to edit them
 all together.
 
 ``` r
-# create a slightly different chart for demonstration 
+# create a slightly different chart for demonstration
 # the bars are transparent in this chart so you can see how theme_edit()
 # changed the structure of the chart
 p <- ggplot(mtcars, aes(mpg)) +
-    geom_histogram(fill = fill_colour, 
-                   alpha = 0.2) # fade bars into background
+  geom_histogram(
+    fill = fill_colour,
+    alpha = 0.2
+  ) # fade bars into background
 
-p + 
+p +
   clean_axis() +
   theme_edit() + # brings the chart structure to your attention
   ggtitle("The bars are faded out in this example so you can see the structure of the chart")
@@ -95,7 +132,7 @@ p +
 <img src="man/figures/README-export-to-edit-1.png" width="100%" />
 
 ``` r
-  
+
 # save the chart as svg for editting
 ggsave("man/figures/chart_to_edit.svg")
 ```

@@ -3,3 +3,4 @@
 export(clean_axis)
 export(get_colours)
 export(theme_edit)
+export(theme_to_size)
