@@ -19,5 +19,6 @@ Imports:
     glue,
     methods,
     rlang,
+    scales,
     svglite
 URL: https://tbk03.github.io/ggdesign/
