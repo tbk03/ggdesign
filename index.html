@@ -87,9 +87,9 @@
 <span><span class="co"># get a colour to use in the plot from the ggdesign palette</span></span>
 <span><span class="va">fill_colour</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_colours.html">get_colours</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># create a very basic plot for demonstration </span></span>
+<span><span class="co"># create a very basic plot for demonstration</span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">fill_colour</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">fill_colour</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># show the issue with the gaps</span></span>
 <span><span class="va">p</span> <span class="op">+</span></span>
@@ -98,30 +98,55 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># addressing the issue with axis clean</span></span>
-<span><span class="va">p</span> <span class="op">+</span> </span>
+<span><span class="va">p</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/clean_axis.html">clean_axis</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="co"># removes the gaps</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"The gaps can be removed to make everything look neater"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-clean-axis-2.png" width="100%"></p>
 </div>
 <div class="section level2">
-<h2 id="exporting-a-chart-as-an-svg-to-edit">Exporting a chart as an svg to edit<a class="anchor" aria-label="anchor" href="#exporting-a-chart-as-an-svg-to-edit"></a>
+<h2 id="exporting-a-chart-as-an-svg-with-text-and-other-chart-structure-about-the-right-size">Exporting a chart as an svg (with text and other chart structure about the right size!)<a class="anchor" aria-label="anchor" href="#exporting-a-chart-as-an-svg-with-text-and-other-chart-structure-about-the-right-size"></a>
+</h2>
+<p>A challenge often faced when exporting charts as svgs to edit in vector design software, is the sizing of the non-data elements of the chart. If you export a large chart (say 200mm by 200m), when you open it in the design software the text can be tiny and the axis/gridlines very thin.</p>
+<p><code><a href="reference/theme_to_size.html">theme_to_size()</a></code> estimates an appropriate text size and line weights based on the height and width of the plot. These estimates might not prove to be ideal, but when you open the svg to edit you should be able to see everything roughly in place. Of course, everything can be tweaked in the design software before the chart is finalised.</p>
+<p>Due to the way ggplot2 works, you have to pass the chart width, height and units to both <code><a href="reference/theme_to_size.html">theme_to_size()</a></code> (for sizing non-data elements of the chart) and <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave()</a></code> (for exporting the chart), as shown below.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># define the size of the exported chart</span></span>
+<span><span class="va">p_width</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
+<span><span class="va">p_height</span> <span class="op">&lt;-</span> <span class="fl">60</span></span>
+<span><span class="va">p_units</span> <span class="op">&lt;-</span> <span class="st">"mm"</span></span>
+<span></span>
+<span><span class="co"># resize the text, axis and gridlines on the plot above to better match the</span></span>
+<span><span class="co"># size of the exported chart</span></span>
+<span><span class="va">p_sized</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="reference/theme_to_size.html">theme_to_size</a></span><span class="op">(</span>width <span class="op">=</span> <span class="va">p_width</span>, height <span class="op">=</span> <span class="va">p_height</span>, units <span class="op">=</span> <span class="va">p_units</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># save the chart as svg for editting</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"man/figures/chart_theme_to_size.svg"</span>,</span>
+<span>  <span class="va">p_sized</span>,</span>
+<span>  width <span class="op">=</span> <span class="va">p_width</span>, height <span class="op">=</span> <span class="va">p_height</span>, units <span class="op">=</span> <span class="va">p_units</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="exporting-a-chart-as-an-svg-and-making-sure-you-edit-the-structure">Exporting a chart as an svg and making sure you edit the structure<a class="anchor" aria-label="anchor" href="#exporting-a-chart-as-an-svg-and-making-sure-you-edit-the-structure"></a>
 </h2>
 <p>When editing a chart in design software, paying attention to the details of the chart structure can really enhance the overall design aesthetic. <code>ggdesign</code> provides <code>theme_edit</code> to help you focus on these design decisions. It deliberately applies inappropriate and offputting colours to the structural elements of the chart (inc the axis and gridlines). So, once you import the chart into your design software you are forced to consider and make deliberate changes to these structural elements. Each group of elements (e.g. minor gridlines) are coloured the same, so you can use ‘select same colour’ in your design software to edit them all together.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># create a slightly different chart for demonstration </span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># create a slightly different chart for demonstration</span></span>
 <span><span class="co"># the bars are transparent in this chart so you can see how theme_edit()</span></span>
 <span><span class="co"># changed the structure of the chart</span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">fill_colour</span>, </span>
-<span>                   alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="co"># fade bars into background</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span></span>
+<span>    fill <span class="op">=</span> <span class="va">fill_colour</span>,</span>
+<span>    alpha <span class="op">=</span> <span class="fl">0.2</span></span>
+<span>  <span class="op">)</span> <span class="co"># fade bars into background</span></span>
 <span></span>
-<span><span class="va">p</span> <span class="op">+</span> </span>
+<span><span class="va">p</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/clean_axis.html">clean_axis</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/theme_edit.html">theme_edit</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="co"># brings the chart structure to your attention</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"The bars are faded out in this example so you can see the structure of the chart"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-export-to-edit-1.png" width="100%"></p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span>  </span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="co"># save the chart as svg for editting</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"man/figures/chart_to_edit.svg"</span><span class="op">)</span></span></code></pre></div>
 </div>
